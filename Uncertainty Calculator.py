@@ -1,37 +1,6 @@
-
-# z = x + y 
-def add(x, y):
-    l = pow(x.getdelta(), 2) + pow(y.getdelta(), 2)
-    return variable(x.getvalue() + y.getvalue(), pow(l, 0.5))
+class var:
     
-# z = x - y
-def sub(x, y):
-    l = pow(x.getdelta(), 2) + pow(y.getdelta(), 2)
-    return variable(x.getvalue() -  y.getvalue(), pow(l, 0.5))
-
-# z = x * y
-def mul(x, y):
-    l = ((pow(x.getdelta()* y.getvalue(), 2)) + (pow(y.getdelta() * x.getvalue(), 2)))
-    return variable(x.getvalue() * y.getvalue(), pow(l, 0.5))
-
-# z = x / y
-def div(x, y):
-    a = -1 * pow(y.getvalue(),-2) * x.getvalue()
-    b = 1 / y.getvalue()
-    
-    l = (pow(x.getdelta() * b, 2) + pow(y.getdelta() * a, 2))
-    return variable(x.getvalue() / y.getvalue(), pow(l, 0.5))
-    
-    return variable(x.getvalue() / y.getvalue(), pow(l, 0.5))
-
-
-def power_c(x, c):
-    l = c * pow(x.getvalue(), c - 1) * x.getdelta()
-    return variable(pow(x.getvalue(), c), l)
-
-class variable:
-    
-    def __init__(self, value, delta):
+    def __init__(self, value, delta = 0):
         self.delta = delta
         self.value = value
     
@@ -40,16 +9,38 @@ class variable:
     
     def getvalue(self):
         return self.value
+        
+    def __add__(self, other):
+        l = pow(self.getdelta(), 2) + pow(other.getdelta(), 2)
+        return variable(self.getvalue() + other.getvalue(), pow(l, 0.5))
+
+    def __sub__(self, other):
+        l = pow(self.getdelta(), 2) + pow(other.getdelta(), 2)
+        return variable(self.getvalue() -  other.getvalue(), pow(l, 0.5))
+        
+    def __mul__(self, other):
+        l = ((pow(self.getdelta() * other.getvalue(), 2)) + (pow(other.getdelta() * self.getvalue(), 2)))
+        return variable(self.getvalue() * other.getvalue(), pow(l, 0.5))
+    
+    def __div__(self, other):
+        a = -1 * pow(other.getvalue(),-2) * self.getvalue()
+        b = 1 / other.getvalue()
+        l = (pow(self.getdelta() * b, 2) + pow(other.getdelta() * a, 2))
+        return variable(self.getvalue() / other.getvalue(), pow(l, 0.5))
+        
+    def __pow__(self, const):
+        l = const * pow(self.getvalue(), const - 1) * self.getdelta()
+        return variable(pow(self.getvalue(), const), l)
+    
+    def __str__(self):
+        return str(k.getvalue()) + " , " + str(k.getdelta()) 
+
+        
 
 # Variables (value, delta)
-m = variable(3, 0.1)
-v = variable(4, 0.2)
+m = var(3, 0.1)
+v = var(4, 0.2)
 
-# k = 1/2 mv^2
+k = var(0.5) * m * (v ** 2)
 
-c = mul(m, variable(0.5, 0))
-d = power_c(v, 2)
-k = mul(c, d)
-
-print(k.getvalue())
-print(k.getdelta())
+print(k)
