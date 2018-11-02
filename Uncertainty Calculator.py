@@ -45,11 +45,11 @@ class variable:
 m = variable(3, 0.1)
 v = variable(4, 0.2)
 
-# 1/2 mv^2
+# k = 1/2 mv^2
 
 c = mul(m, variable(0.5, 0))
 d = power_c(v, 2)
-t = mul(c, d)
+k = mul(c, d)
 
-print(t.getvalue())
-print(t.getdelta())
+print(k.getvalue())
+print(k.getdelta())
