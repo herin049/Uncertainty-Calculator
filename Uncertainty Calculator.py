@@ -41,6 +41,7 @@ class var:
 m = var(3, 0.1)
 v = var(4, 0.2)
 
+# k = 1/2 m v^2
 k = var(0.5) * m * (v ** 2)
 
 
